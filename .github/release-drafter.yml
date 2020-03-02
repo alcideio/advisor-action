@@ -22,7 +22,7 @@ categories:
     label: chore
     title: Maintenance
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
-name-template: "v$NEXT_PATCH_VERSION 🚀"
+name-template: "Alcide Kubernetes Advisor Github Action - v$NEXT_PATCH_VERSION 🚀"
 tag-template: v$NEXT_PATCH_VERSION
 template: |-
     ## Changes

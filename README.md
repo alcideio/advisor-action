@@ -18,6 +18,7 @@ Alcide Advisor is an agentless service for Kubernetes audit and compliance thatâ
 *  Kubernetes operators security best practices.
 *  Deployment conformance to labeling, annotating, resource limits and much more ...
 
+[Create Alcide Advisor Account](https://www.alcide.io/pricing)
 
 ## Usage
 
@@ -75,7 +76,7 @@ jobs:
           kubectl get storageclass standard
 
       - name: Scan Local Cluster
-        uses: alcideio/advisor-action@v1.0.0    
+        uses: alcideio/advisor-action@v1.0.3    
         with:
           exclude_namespaces: '-'
           include_namespaces: '*'
