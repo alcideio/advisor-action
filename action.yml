@@ -1,4 +1,4 @@
-name: "Advisor Scan"
+name: "Alcide Advisor Kubernetes Scan"
 description: "Security Scan Kubernetes Cluster"
 author: "Alcide"
 branding:
