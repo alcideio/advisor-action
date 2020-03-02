@@ -28,7 +28,7 @@ jobs:
           kubectl cluster-info
           kubectl get storageclass standard
 
-          - name: Scan Local Cluster
+      - name: Scan Local Cluster
         uses: ./    
         with:
           exclude_namespaces: '-'
