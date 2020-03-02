@@ -3,7 +3,8 @@
 [![](https://github.com/alcideio/advisor-action/workflows/Test/badge.svg?branch=master)](https://github.com/alcideio/advisor-action/actions)
 
 
-A GitHub Action for security scan your Kubernetes clustet in a pipeline workflow.
+A GitHub Action to add security scanning of your Kubernetes cluster as part of your pipeline workflow.
+To customize the scan [Create Alcide Advisor Account](https://www.alcide.io/pricing).
 
 
 ## About *Alcide Advisor*
@@ -18,7 +19,7 @@ Alcide Advisor is an agentless service for Kubernetes audit and compliance thatâ
 *  Kubernetes operators security best practices.
 *  Deployment conformance to labeling, annotating, resource limits and much more ...
 
-[Create Alcide Advisor Account](https://www.alcide.io/pricing)
+
 
 ## Usage
 
@@ -42,7 +43,7 @@ For more information on inputs, see the [API Documentation](https://developer.gi
 
 ### Example Workflow
 
-Create a workflow (eg: `.github/workflows/test.yml`):
+Create a workflow (eg: `.github/workflows/advisor-scan.yml`):
 
 ```yaml
 name: Alcide Advisor Workflow Example
@@ -76,7 +77,7 @@ jobs:
           kubectl get storageclass standard
 
       - name: Scan Local Cluster
-        uses: alcideio/advisor-action@v1.0.3    
+        uses: alcideio/advisor-action@v1.0.4    
         with:
           exclude_namespaces: '-'
           include_namespaces: '*'
