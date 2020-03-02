@@ -1,0 +1,43 @@
+name: Test Alcide Advisor
+
+on:
+  pull_request:
+  push:
+    branches:
+      - '*'
+      - '!master'
+
+jobs:
+  advisor-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Launch Cluster
+        uses: helm/kind-action@v1.0.0-alpha.3
+        with:
+          version: v0.7.0
+          name: kruzer
+          node_image: kindest/node:v1.16.4
+          wait: 5m
+          install_local_path_provisioner: true
+
+      - name: Test
+        run: |
+          kubectl cluster-info
+          kubectl get storageclass standard
+
+      - name: Scan Local Cluster
+        uses: ./    
+        with:
+          exclude_namespaces: '-'
+          include_namespaces: '*'
+          output_file: 'advisor-scan.html'
+
+      - name: Upload Alcide Advisor Scan Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: advisor-scan.html 
+          path: advisor-scan.html 
+

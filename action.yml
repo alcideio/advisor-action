@@ -1,0 +1,53 @@
+name: "Advisor Scan"
+description: "Security Scan Kubernetes Cluster"
+author: "Alcide"
+branding:
+  color: blue
+  icon: alert-triangle
+inputs:
+  
+  include_namespaces:
+    description: Namespaces to include in the scan - defaults to all
+    required: false
+    default: "*"  
+  exclude_namespaces:
+    description: Namespaces to exclude in the scan - defaults to kube-system,istio-system
+    required: false
+    default: "kube-system,istio-system"  
+
+  output_file:
+    description: Scan result file name. You can publish this artifact in a later step.
+    required: false
+    default: "advisor-scan-result.html"
+  fail_on_critical:
+    description: Fail the task if critical findings observed.
+    required: false
+    default: ""
+  policy_profile:
+    description: Alcide policy profile the cluster will be scanned against. 
+    required: false
+    #default: ""
+
+  #
+  # Alcide Cloud Account
+  #
+  policy_profile_id:
+    description: The profile id with which cluster should be scanned. Note - Alcide Api Key is required to run a scan with customized profile 
+    required: false
+  alcide_apikey:
+    description: Alcide API Key - to run advisor scan with customized profile an api-key is needed - login to your account to obtain one
+    required: false
+  alcide_apiserver:
+    description: Alcide API Server - The api server provisioned to your account
+    required: false
+
+
+
+
+runs:
+  using: "node12"
+  main: "main.js"
+
+
+
+
