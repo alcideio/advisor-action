@@ -30,32 +30,65 @@ For more information, reference the GitHub Help Documentation for [Creating a wo
 
 For more information on inputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#input)
 
-- `version`: The kind version to use (default: `v0.7.0`)
-- `config`: The path to the kind config file
-- `node_image`: The Docker image for the cluster nodes
-- `cluster_name`: The name of the cluster to create (default: `chart-testing`)
-- `wait`: The duration to wait for the control plane to become ready (default: `60s`)
-- `log_level`: The log level for kind
+  - 'include_namespaces': Namespaces to include in the scan - defaults to all
+  - 'exclude_namespaces': Namespaces to exclude in the scan - defaults to kube-system,istio-system
+  - 'output_file: Scan result file name. You can publish this artifact in a later step.
+  - 'fail_on_critical': Fail the task if critical findings observed.
+  - 'policy_profile:Alcide policy profile the cluster will be scanned against. 
+  - 'policy_profile_id': The profile id with which cluster should be scanned. Note - Alcide Api Key is required to run a scan with customized profile 
+  - 'alcide_apikey': Alcide API Key - to run advisor scan with customized profile an api-key is needed - login to your account to obtain one
+  - 'alcide_apiserver': Alcide API Server - The api server provisioned to your account
 
 ### Example Workflow
 
-Create a workflow (eg: `.github/workflows/create-cluster.yml`):
+Create a workflow (eg: `.github/workflows/test.yml`):
 
 ```yaml
-name: Create Cluster
+name: Alcide Advisor Workflow Example
 
-on: pull_request
+on:
+  pull_request:
+  push:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
-  create-cluster:
+  advisor-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Create k8s Kind Cluster
-        uses: alcideio/advisor-action@v1.0.0-alpha.3
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Launch Cluster
+        uses: helm/kind-action@v1.0.0-alpha.3
+        with:
+          version: v0.7.0
+          name: kruzer
+          node_image: kindest/node:v1.16.4
+          wait: 5m
+          install_local_path_provisioner: true
+
+      - name: Test
+        run: |
+          kubectl cluster-info
+          kubectl get storageclass standard
+
+      - name: Scan Local Cluster
+        uses: alcideio/advisor-action@v1.0.0    
+        with:
+          exclude_namespaces: '-'
+          include_namespaces: '*'
+          output_file: 'advisor-scan.html'
+
+      - name: Upload Alcide Advisor Scan Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: advisor-scan.html 
+          path: advisor-scan.html         
 ```
 
-This uses [@alcideio/advisor-action](https://www.github.com/alcideio/advisor-action) GitHub Action to spin up a [kind](https://kind.sigs.k8s.io/) Kubernetes cluster on every Pull Request.
-See [@helm/chart-testing-action](https://www.github.com/helm/chart-testing-action) for a more practical example.
+This uses [@alcideio/advisor-action](https://www.github.com/alcideio/advisor-action) GitHub Action to security scan your Kubernetes cluster configuration.
 
 ## Code of conduct
 
