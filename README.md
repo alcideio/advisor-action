@@ -33,14 +33,14 @@ For more information, reference the GitHub Help Documentation for [Creating a wo
 
 For more information on inputs, see the [API Documentation](https://developer.github.com/v3/repos/releases/#input)
 
-  - 'include_namespaces': Namespaces to include in the scan - defaults to all
-  - 'exclude_namespaces': Namespaces to exclude in the scan - defaults to kube-system,istio-system
-  - 'output_file: Scan result file name. You can publish this artifact in a later step.
-  - 'fail_on_critical': Fail the task if critical findings observed.
-  - 'policy_profile:Alcide policy profile the cluster will be scanned against. 
-  - 'policy_profile_id': The profile id with which cluster should be scanned. Note - Alcide Api Key is required to run a scan with customized profile 
-  - 'alcide_apikey': Alcide API Key - to run advisor scan with customized profile an api-key is needed - login to your account to obtain one
-  - 'alcide_apiserver': Alcide API Server - The api server provisioned to your account
+  - `include_namespaces`: Namespaces to include in the scan - defaults to all
+  - `exclude_namespaces`: Namespaces to exclude in the scan - defaults to kube-system,istio-system
+  - `output_file`: Scan result file name. You can publish this artifact in a later step.
+  - `fail_on_critical`': Fail the task if critical findings observed.
+  - `policy_profile`:Alcide policy profile the cluster will be scanned against. 
+  - `policy_profile_id`: The profile id with which cluster should be scanned. Note - Alcide Api Key is required to run a scan with customized profile 
+  - `alcide_apikey`: Alcide API Key - to run advisor scan with customized profile an api-key is needed - login to your account to obtain one
+  - `alcide_apiserver`: Alcide API Server - The api server provisioned to your account
 
 ![Alcide Kubernetes Advisor](https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2019/06/19/Alcide-Advisor-Amazon-EKS-1.png "Alcide Kubernetes Advisor")
 
